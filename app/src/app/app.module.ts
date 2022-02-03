@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CityEditComponent } from './city-edit/city-edit.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, CityEditComponent],
@@ -31,6 +32,7 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

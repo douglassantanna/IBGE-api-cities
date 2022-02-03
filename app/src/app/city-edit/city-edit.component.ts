@@ -9,7 +9,7 @@ import { ICities } from '../interface/icities';
 })
 export class CityEditComponent implements OnInit {
   id: string = ''
-  name: string = '';
+  nome: string = '';
   city = {} as ICities;
   constructor(@Inject(MAT_DIALOG_DATA) public viewCity: ICities) { }
 
@@ -18,7 +18,7 @@ export class CityEditComponent implements OnInit {
   data(){
     if(this.viewCity)
     this.id = this.viewCity.id;
-    this.name = this.viewCity.name;
+    this.nome = this.viewCity.nome;
     return this.viewCity;
   }
 }
