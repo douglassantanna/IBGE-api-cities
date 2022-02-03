@@ -9,14 +9,15 @@ namespace Cities
     public class CitiesApi : ICities
     {
         HttpClient _httpClient;
-        public CitiesApi(HttpClient client)
+        public CitiesApi(HttpClient httpClient)
         {
-            _httpClient = client;
+            _httpClient = httpClient;
         }
-        public async Task<List<City>> Get()
+        public async Task<List<City>> GetCities()
         {
             var request = await _httpClient.GetAsync(_httpClient.BaseAddress);
-            if(request.StatusCode == System.Net.HttpStatusCode.OK){
+            if (request.StatusCode == System.Net.HttpStatusCode.OK)
+            {
                 string json = await request.Content.ReadAsStringAsync();
                 return JsonSerializer.Deserialize<List<City>>(json);
             }

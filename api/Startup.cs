@@ -28,7 +28,6 @@ namespace api
                 x.BaseAddress = new Uri("https://servicodados.ibge.gov.br/api/v1/localidades/estados/MG/municipios");
             });
             services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-            services.AddScoped<DataContext, DataContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

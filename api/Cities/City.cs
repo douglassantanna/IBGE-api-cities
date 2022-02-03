@@ -2,8 +2,8 @@ namespace Cities
 {
     public class City
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public string id { get; set; }
+        public string nome { get; set; }
 
     }
 }

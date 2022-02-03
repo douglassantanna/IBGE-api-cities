@@ -5,6 +5,6 @@ namespace Cities
 {
     public interface ICities
     {
-        Task<List<City>> Get();
+        Task<List<City>> GetCities();
     }
 }
