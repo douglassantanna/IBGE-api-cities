@@ -48,6 +48,8 @@ export class AppComponent implements OnInit {
     });
   }
   deleteAllDataTable(){
-    this.cityService.deleteAll().subscribe(() => {})
+    this.cityService.deleteAll().subscribe(() => {
+      this.getCities();
+    })
   }
 }
