@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'action'];
   cities: ICities[] = [];
+  city: ICities = {} as ICities;
   ngOnInit(): void {
   }
 
@@ -36,8 +37,8 @@ export class AppComponent implements OnInit {
       })
     ).subscribe(() => {})
   }
-  populateTable(city: ICities){
-    this.cityService.populateDatabase(city).subscribe(() => {
+  populateTable(){
+    this.cityService.populateDatabase(this.city).subscribe(() => {
       this.getCities();
     })
   }
