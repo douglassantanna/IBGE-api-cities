@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cities;
@@ -20,9 +21,10 @@ namespace Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<ActionResult<List<City>>> GetCitiesFromDatabase()
         {
-            return Ok(await _cities.GetCities());
+            var city = await _dataContext.Cities.ToListAsync();
+            return city;
         }
 
         [HttpPost]
@@ -38,22 +40,38 @@ namespace Controllers
             return Ok();
         }
 
-        // [HttpPut("{id}")]
-        // public async Task<ActionResult> Update(string id, UpdateCity updateCity){
-
-        // }
-        [HttpDelete("id")]
-        public ActionResult Delete(string id)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(string id)
         {
-            var city =  _dataContext.Cities.FirstOrDefault(x => x.id == id);
 
+            if (!ModelState.IsValid) return BadRequest();
+
+            var city = await _dataContext.Cities.FirstOrDefaultAsync(x => x.id == id);
+
+            _dataContext.Cities.Update(city);
+            await _dataContext.SaveChangesAsync();
+            return Ok();
+
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ICities>> Delete(string id)
+        {
+            var city = await _dataContext.Cities.FirstOrDefaultAsync(x => x.id == id);
             if (city is null) { return NotFound(); }
 
             _dataContext.Remove(city);
             _dataContext.SaveChanges();
-            return NoContent();
+            return Ok();
         }
 
-        public record UpdateCity(string id, string nome);
+        [HttpDelete]
+        public async Task<ActionResult> DeleteAll()
+        {
+            _dataContext.Cities.RemoveRange();
+            await _dataContext.SaveChangesAsync();
+
+            return NoContent();
+
+        }
     }
 }
