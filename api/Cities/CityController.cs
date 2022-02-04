@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Cities;
 using Data;
@@ -39,19 +40,21 @@ namespace Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(string id)
+        [HttpPut]
+        [Route("{id}")]
+
+        public ActionResult Update(string id, UpdateUser updateUser)
         {
+            var city = _dataContext.Cities.FirstOrDefault(x => x.id == id);
+            if (city is null) return NotFound();
 
-            if (!ModelState.IsValid) return BadRequest();
+            city.UpdateName(updateUser.nome);
+            _dataContext.Entry(city).State = EntityState.Modified;
+            _dataContext.SaveChanges();
 
-            var city = await _dataContext.Cities.FirstOrDefaultAsync(x => x.id == id);
-
-            _dataContext.Cities.Update(city);
-            await _dataContext.SaveChangesAsync();
-            return Ok();
-
+            return NoContent();
         }
+
         [HttpDelete]
         [Route("{id}")]
         public async Task<ActionResult<ICities>> Delete(string id)
@@ -76,5 +79,7 @@ namespace Controllers
             return NoContent();
 
         }
+
+        public record UpdateUser(string nome);
     }
 }
