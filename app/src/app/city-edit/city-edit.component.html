@@ -1,8 +1,9 @@
 <div class="container">
-  <span>Editar município</span>
+  <span>{{ title }}</span>
   <mat-form-field appearance="outline">
-    <input matInput [(ngModel)]="nome" name="nome">
+    <input matInput [(ngModel)]="city.nome" name="nome">
+    <mat-icon matSuffix color="primary">business</mat-icon>
   </mat-form-field>
-  <button mat-raised-button color="primary" [mat-dialog-close]="data()">Salvar</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="city">Salvar</button>
 </div>
 

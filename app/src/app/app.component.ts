@@ -35,7 +35,10 @@ export class AppComponent implements OnInit {
         if(x == undefined) return of();
         return this.cityService.update(x);
       })
-    ).subscribe(() => {})
+    ).subscribe((x) => {
+      console.log(x);
+      this.getCities();
+    })
   }
   populateTable(){
     this.cityService.populateDatabase(this.city).subscribe(() => {
