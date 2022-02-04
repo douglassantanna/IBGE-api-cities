@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'action'];
   cities: ICities[] = [];
   ngOnInit(): void {
-    this.getCities();
   }
 
   getCities() {
@@ -25,18 +24,30 @@ export class AppComponent implements OnInit {
       this.cities = x;
     });
   }
-  editCity() {
+  editCity(city: ICities) {
     const dialogRef = this.dialog.open(CityEditComponent, {
       width: '350px',
+      data: city
     });
-    dialogRef.afterClosed().subscribe((x) => {
-      if (this.cities == undefined) return of();
-      return (this.cities = x);
-    });
+    dialogRef.afterClosed().pipe(
+      switchMap((x : ICities) => {
+        if(x == undefined) return of();
+        return this.cityService.update(x);
+      })
+    ).subscribe(() => {})
   }
-  deleteCity(id: ICities) {
+  populateTable(city: ICities){
+    this.cityService.populateDatabase(city).subscribe(() => {
+      this.getCities();
+    })
+  }
+  deleteCity(id: number) {
     this.cityService.delete(id).subscribe(() => {
+      console.log(id)
       this.getCities();
     });
+  }
+  deleteAllDataTable(){
+    this.cityService.deleteAll().subscribe(() => {})
   }
 }

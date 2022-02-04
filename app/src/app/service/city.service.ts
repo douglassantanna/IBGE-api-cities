@@ -18,7 +18,13 @@ export class CityService {
   populateDatabase(city: ICities): Observable<ICities>{
     return this.http.post<ICities>(url, city);
   }
-  delete(id: ICities): Observable<any> {
+  update(id: ICities){
+    return this.http.put(`${url}/${id}`, id);
+  }
+  delete(id: number): Observable<any> {
     return this.http.delete(`${url}/${id}`);
+  }
+  deleteAll(){
+    return this.http.delete(url);
   }
 }
