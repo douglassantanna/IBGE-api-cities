@@ -21,6 +21,14 @@ namespace Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
+
+        public async Task<ActionResult<List<City>>> GetCitiesFromDatabaseById(string id)
+        {
+            var city = await _dataContext.Cities.FirstOrDefaultAsync(x => x.id == id);
+            return Ok();
+        }
+        [HttpGet]
         public async Task<ActionResult<List<City>>> GetCitiesFromDatabase()
         {
             var city = await _dataContext.Cities.ToListAsync();
