@@ -53,7 +53,8 @@ namespace Controllers
             return Ok();
 
         }
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("{id}")]
         public async Task<ActionResult<ICities>> Delete(string id)
         {
             var city = await _dataContext.Cities.FirstOrDefaultAsync(x => x.id == id);
@@ -67,9 +68,12 @@ namespace Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteAll()
         {
-            _dataContext.Cities.RemoveRange();
+            var cities = await _dataContext.Cities.ToListAsync();
+            foreach (var city in cities)
+            {
+                _dataContext.Cities.Remove(city);
+            }
             await _dataContext.SaveChangesAsync();
-
             return NoContent();
 
         }
