@@ -14,3 +14,4 @@ como componente de estilização, e também deveria ser possível deletar todos 
 - .NET 5.0
 
 # 🖥️ Outcome/Resultado
+![image](https://user-images.githubusercontent.com/68830911/152627845-27c881ff-bc10-4b36-a213-2c8612b6a53c.png)
